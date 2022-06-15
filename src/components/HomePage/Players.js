@@ -1,9 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import TeamIds from "../../JSONdata/TeamIds";
-import "./style.css";
+import teamIds from "../../util/JSONdata/teamIds";
+import "../style.css";
+
 const Players = ({ playerInfo, dataByYear }) => {
-  React.useEffect(function setupListener() {
+  useEffect(function setupListener() {
     const handleReload = () => {
       sessionStorage.removeItem("lastSearch");
       localStorage.removeItem("selected");
@@ -17,7 +18,7 @@ const Players = ({ playerInfo, dataByYear }) => {
 
   return (
     <div
-      className="flex flex-col items-center mb-10 mx-16 bg-white"
+      className="flex flex-col items-center mb-10 mr-3 ml-3 md:mr-12 md:ml-12 bg-white"
       style={{ boxShadow: "3px 2px 10px 2px  rgba(0,0,0,0.41)" }}
     >
       <div className=" w-full ">
@@ -41,8 +42,8 @@ const Players = ({ playerInfo, dataByYear }) => {
           if (info.teams.length === 0) return null;
           let teamId = info.teams.slice(-1)[0].teamId;
           let teamAbbreviation;
-          for (const IDNumber in TeamIds) {
-            if (IDNumber === teamId) teamAbbreviation = TeamIds[IDNumber];
+          for (const IDNumber in teamIds) {
+            if (IDNumber === teamId) teamAbbreviation = teamIds[IDNumber];
           }
 
           if (!info.teamSitesOnly) return null;
@@ -54,18 +55,26 @@ const Players = ({ playerInfo, dataByYear }) => {
           if (country === "") country = "USA";
           let number = info.jersey;
           let id = info.personId;
+
           let imgSrc = `https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png`;
+          let yearParam = localStorage.getItem("selected");
           return (
             <Link
-              to={{ pathname: `/player/${name}/` }}
-              state={{ info: info, dataByYear: dataByYear }}
+              to={{ pathname: `/player/${yearParam}/${id}/` }}
+              state={{
+                info: info,
+                dataByYear: dataByYear,
+                pageID: "PlayerPage",
+              }}
               key={name}
+              className="no-underline"
             >
-              <div className="playerDiv py-4  border-slate-200 border-b-2 grid grid-cols-5 place-items-center md:grid-cols-8">
+              <div className="playerDiv py-4  text-black border-slate-200 border-b-2 grid grid-cols-5 place-items-center md:grid-cols-8">
                 <img
                   className=" w-12 h-12 rounded-full  m-y-auto bg-slate-200 object-cover"
-                  src={`${imgSrc}`}
-                  alt="player"
+                  src={imgSrc}
+                  alt="img not
+                  available"
                 />
 
                 <div>{name}</div>

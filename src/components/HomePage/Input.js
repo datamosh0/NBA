@@ -1,4 +1,4 @@
-const Form = ({ setPlayerInfo, dataByYear }) => {
+const Input = ({ setPlayerInfo, dataByYear }) => {
   const handleChange = (e) => {
     e.preventDefault();
 
@@ -36,4 +36,4 @@ const Form = ({ setPlayerInfo, dataByYear }) => {
   );
 };
 
-export default Form;
+export default Input;
