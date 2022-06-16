@@ -5,7 +5,7 @@ const playersSearchUrl =
 const avgsUrl =
   "https://www.balldontlie.io/api/v1/season_averages?player_ids[]=";
 
-const CallApi = async (info) => {
+const callApi = async (info) => {
   const player = await axiosCall(playersSearchUrl + info.lastName);
   let playerId, playerData;
 
@@ -26,4 +26,4 @@ const CallApi = async (info) => {
   return mergedPlayerArr;
 };
 
-export default CallApi;
+export default callApi;
