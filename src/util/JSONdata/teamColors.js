@@ -1,4 +1,4 @@
-let TeamColors = {
+let teamColors = {
   "76ers": "#016bb6",
   Bucks: "#01471c",
   Bulls: "#ce1141",
@@ -21,7 +21,7 @@ let TeamColors = {
   Pelicans: "#002b5c",
   Pistons: "#1d428a",
   Raptors: "#000000",
-  Rockets: "#ce1141",
+  Rockets: "#444",
   Spurs: "#000000",
   Suns: "#1d1160",
   Thunder: "#007ac1",
@@ -31,4 +31,4 @@ let TeamColors = {
   Wizards: "#002b5c",
 };
 
-export default TeamColors;
+export default teamColors;

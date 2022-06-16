@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Players from "./components/HomePage/Players";
-import Form from "./components/HomePage/Form";
-import Arrows from "./components/HomePage/Arrows";
-import Year from "./components/HomePage/Year";
-import axiosCall from "./util/axiosCall";
-import ShowLoading from "./components/PlayerPage/ShowLoading";
+import { useState, useEffect } from "react";
+import Players from "./Players";
+import Input from "./Input";
+import Arrows from "./Arrows";
+import Year from "./Year";
+import axiosCall from "../../util/axiosCall";
+import ShowLoading from "../ShowLoading";
+
 const Home = () => {
   const [playerInfo, setPlayerInfo] = useState([]);
   const [dataByYear, setDataByYear] = useState();
   const [playerIndex, setPlayerIndex] = useState(50);
-  const [pageIndex, setPageIndex] = useState(0);
   const [loadingPlayers, setLoadingPlayers] = useState(true);
+
   useEffect(() => {
     let selectedStr = localStorage.getItem("selected");
     if (selectedStr) {
@@ -38,21 +39,20 @@ const Home = () => {
       let teamUrl = "https://www.balldontlie.io/api/v1/teams";
       let teamData = await axiosCall(teamUrl);
       sessionStorage.setItem("teamData", JSON.stringify(teamData));
+      localStorage.setItem("dataByYear", JSON.stringify(dataByYear));
     };
     initLogic(yearParam);
   }, []);
 
   return (
     <main className="w-full pb-10 bg-gray-200 min-h-screen">
-      <Form setPlayerInfo={setPlayerInfo} dataByYear={dataByYear} />
+      <Input setPlayerInfo={setPlayerInfo} dataByYear={dataByYear} />
       <Year
         setDataByYear={setDataByYear}
         setPlayerInfo={setPlayerInfo}
         setPlayerIndex={setPlayerIndex}
-        setPageIndex={setPageIndex}
         dataByYear={dataByYear}
         playerIndex={playerIndex}
-        pageIndex={pageIndex}
       />
       <div>
         {loadingPlayers ? (
@@ -66,9 +66,7 @@ const Home = () => {
         setPlayerInfo={setPlayerInfo}
         dataByYear={dataByYear}
         playerIndex={playerIndex}
-        pageIndex={pageIndex}
         setPlayerIndex={setPlayerIndex}
-        setPageIndex={setPageIndex}
       />
       <a href="#top" className="flex justify-center">
         Jump to top of page

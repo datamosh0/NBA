@@ -1,5 +1,5 @@
-import React from "react";
-import spinningBall from "./spinningBall.gif";
+import spinningBall from "../util/spinningBall.gif";
+
 const ShowLoading = () => {
   return (
     <div className="w-full flex justify-center h-full items-center bg-gray-200">

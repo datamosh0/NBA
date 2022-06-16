@@ -4,7 +4,7 @@ const axiosCall = async (url) => {
   return axios
     .get(url)
     .then((response) => response.data)
-    .catch((err) => console.log(err));
+    .catch();
 };
 
 export default axiosCall;

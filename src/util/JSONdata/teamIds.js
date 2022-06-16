@@ -1,4 +1,4 @@
-let TeamIds = {
+let teamIds = {
   1610612755: "PHI",
   1610612749: "MIL",
   1610612741: "CHI",
@@ -31,4 +31,4 @@ let TeamIds = {
   1610612764: "WAS",
 };
 
-export default TeamIds;
+export default teamIds;

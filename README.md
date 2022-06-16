@@ -8,7 +8,9 @@
 
 ## libraries used:
 
-- React, react-icons, react-multi-carousel
+- React
+- react-icons
+- react-multi-carousel
 - react-router-dom
-- Tailwind CSS
 - Axios
+- Tailwind CSS

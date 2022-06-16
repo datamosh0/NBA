@@ -1,9 +1,10 @@
 import React from "react";
-import TeamIds from "../../JSONdata/TeamIds";
+import teamIds from "../../util/JSONdata/teamIds";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
-import "./style.css";
+import "../style.css";
+
 const ShowPlayerMore = ({ info, dataByYear }) => {
   let teamData = sessionStorage.getItem("teamData");
 
@@ -13,8 +14,8 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
 
   const matchTeamData = (teamId) => {
     let teamAbbreviation;
-    for (let team in TeamIds) {
-      if (teamId === team) teamAbbreviation = TeamIds[team];
+    for (let team in teamIds) {
+      if (teamId === team) teamAbbreviation = teamIds[team];
     }
     let team;
     JSON.parse(teamData).data.forEach((el) => {
@@ -22,7 +23,6 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
     });
     return team;
   };
-
   const getTeammates = (teamId) => {
     let teammates = [];
     dataByYear.forEach((nbaPlayer) => {
@@ -34,12 +34,9 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
   function shuffle(array) {
     let currentIndex = array.length,
       randomIndex;
-    // While there remain elements to shuffle.
     while (currentIndex !== 0) {
-      // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex],
         array[currentIndex],
@@ -69,10 +66,12 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
   };
 
   return (
-    <div className="bg-gray-200 py-4 h-fit ">
-      <div className="mx-16 my-3 text-2xl">{info.season} Season Averages</div>
+    <div className=" py-4 h-fit" style={{ background: "#e5e7eb" }}>
+      <div className="mr-3 ml-3 md:mr-12 md:ml-12  my-3 text-2xl">
+        {info.season} Season Averages
+      </div>
       <div
-        className="bg-white mx-16"
+        className="bg-white mr-3 ml-3 md:mr-12 md:ml-12 "
         style={{ boxShadow: "3px 2px 10px 2px  rgba(0,0,0,0.41)" }}
       >
         <div className="grid grid-cols-4 md:grid-cols-8 place-items-center py-3  ">
@@ -142,9 +141,9 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center m-6 ">
+      <div className="flex justify-center mr-3 ml-3 md:mr-12 md:ml-12  my-6  ">
         <div
-          className=" bg-white  p-2 grid grid-cols-2"
+          className=" bg-white  p-2 grid grid-cols-2 "
           style={{
             boxShadow: "3px 2px 10px 2px  rgba(0,0,0,0.41)",
             gridTemplateColumns: "repeat(" + teamsLength + ",1fr)",
@@ -156,7 +155,10 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
             let thisTeamData = matchTeamData(teamId);
 
             return (
-              <div key={index} className="flex items-center">
+              <div
+                key={index}
+                className="flex items-center mr-3 ml-3 md:mr-12 md:ml-12 "
+              >
                 <img
                   src={`${teamImgSrc}`}
                   alt=""
@@ -168,8 +170,10 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
                   className=" h-28  pt-11  "
                 ></img>
                 <div>
-                  <div>{thisTeamData.full_name}</div>
-                  <div>
+                  <div className="text-black no-underline">
+                    {thisTeamData.full_name}
+                  </div>
+                  <div className="text-black no-underline">
                     {team.seasonStart} - {parseInt(team.seasonEnd) + 1}
                   </div>
                 </div>
@@ -179,7 +183,7 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
         </div>
       </div>
 
-      <div className="mx-16 my-3 text-2xl">
+      <div className="mx-12 my-3 text-2xl">
         Explore More Players on the {info.season} Team
       </div>
       <Carousel
@@ -195,27 +199,31 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
         transitionDuration={500}
         containerClass="carousel-container"
         dotListClass="custom-dot-list-style"
-        className="h-60 mx-16 pb-16 "
+        className="h-60 mr-3 ml-3 md:mr-12 md:ml-12 pb-16 "
       >
         {teammates.map((teammate, index) => {
           let teamImgSrc = `https://cdn.nba.com/logos/nba/${teammate.teamId}/primary/L/logo.svg`;
           let imgSrc = `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${teammate.personId}.png`;
           let name = teammate.firstName + " " + teammate.lastName;
-
           if (name === info.firstName + " " + info.lastName) return null;
           return (
             <Link
-              to={{ pathname: `/player/${name}/` }}
-              state={{ info: teammate, dataByYear: dataByYear }}
+              to={{ pathname: `/player/${info.season}/${name}/` }}
+              state={{
+                info: teammate,
+                dataByYear: dataByYear,
+                pageID: "PlayerPage",
+              }}
               key={index}
               href={"#top"}
+              className="no-underline text-black"
             >
-              <div className="flex place-items-center overflow-hidden cursor-pointer">
+              <div className="flex place-items-center overflow-hidden cursor-pointer h-40">
                 <div>
                   <img
                     src={`${teamImgSrc}`}
                     alt="team"
-                    className=" opacity-10 h-72 absolute left-10 z-0 pointer-events-none "
+                    className=" opacity-10 w-40 absolute left-28 top-0 z-0 pointer-events-none "
                     style={{ bottom: "-30px" }}
                   />
                   <img
@@ -226,7 +234,7 @@ const ShowPlayerMore = ({ info, dataByYear }) => {
                   <img
                     src={`${imgSrc}`}
                     alt="player"
-                    className="relative h-40 w-50 "
+                    className="relative w-56 "
                   ></img>
                 </div>
 

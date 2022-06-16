@@ -1,29 +1,24 @@
-import React from "react";
 import { HiArrowSmRight, HiArrowSmLeft } from "react-icons/hi";
 
-const Arrows = ({
-  setPlayerInfo,
-  dataByYear,
-  setPageIndex,
-  setPlayerIndex,
-  playerIndex,
-  pageIndex,
-}) => {
+const Arrows = ({ setPlayerInfo, dataByYear, setPlayerIndex, playerIndex }) => {
   const scrollRight = () => {
-    setPlayerIndex(playerIndex + 50);
-    setPageIndex(pageIndex + 1);
+    setPlayerIndex(Math.min(playerIndex + 50, dataByYear.length));
     let playersToLoad = [];
-    for (let i = playerIndex; i < 50 + playerIndex; i++) {
+    for (
+      let i = Math.min(playerIndex, dataByYear.length - 50);
+      i < Math.min(playerIndex + 50, dataByYear.length);
+      i++
+    ) {
       playersToLoad.push(dataByYear[i]);
     }
     setPlayerInfo(playersToLoad);
   };
+
   const scrollLeft = () => {
-    if (pageIndex === 0) return;
+    if (playerIndex <= 50) return;
     setPlayerIndex(playerIndex - 50);
-    setPageIndex(pageIndex - 1);
     let playersToLoad = [];
-    for (let i = playerIndex - 100; i < playerIndex - 50; i++) {
+    for (let i = Math.max(playerIndex - 100, 0); i < playerIndex - 50; i++) {
       playersToLoad.push(dataByYear[i]);
     }
     setPlayerInfo(playersToLoad);
