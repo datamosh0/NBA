@@ -1,9 +1,9 @@
 import axiosCall from "./axiosCall";
 
-const playersSearchUrl =
-  "https://www.balldontlie.io/api/v1/players?per_page=100&search=";
 const avgsUrl =
   "https://www.balldontlie.io/api/v1/season_averages?player_ids[]=";
+const playersSearchUrl =
+  "https://www.balldontlie.io/api/v1/players?per_page=100&search=";
 
 const callApi = async (info) => {
   const player = await axiosCall(playersSearchUrl + info.lastName);
