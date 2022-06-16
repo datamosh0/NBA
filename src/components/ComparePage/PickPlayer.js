@@ -1,5 +1,5 @@
 import teamIds from "../../util/JSONdata/teamIds";
-import callApi from "../../util/callApi";
+import callApi from "../../util/CallApi";
 const PickPlayer = ({
   search,
   changeFirstPlayer,
